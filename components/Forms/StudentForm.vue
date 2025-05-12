@@ -112,7 +112,7 @@ const handleSubmit = async () => {
       amount: form.tierSelection.amount
     };
     const student = await registerStudent(registrationData);
-    console.log(student)
+    console.log('the available spots are ', availableSpots)
     
     if (student) {
       // Reset form
