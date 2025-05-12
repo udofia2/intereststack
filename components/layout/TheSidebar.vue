@@ -6,21 +6,20 @@ import { useStudentStore } from '../../stores/student';
 import { formatCurrency, formatPercentage, formatWeek } from '../../utils/formatters';
 import AppButton from '../common/AppButton.vue';
 
-// Store setup
+const router = useRouter();
+
+
 const uiStore = useUIStore();
 const savingsStore = useSavingsStore();
 const studentStore = useStudentStore();
 
-// State
 const isCollapsed = ref(false);
 
-// Computed properties
 const currentWeek = computed(() => savingsStore.getCurrentWeek);
 const groupSavings = computed(() => savingsStore.getGroupSavings);
 const activeStudentCount = computed(() => studentStore.getActiveStudentCount);
 const gameInvestment = computed(() => savingsStore.getGameInvestment);
 
-// Formatted values
 const totalSavingsFormatted = computed(() => formatCurrency(groupSavings.value.totalAmount));
 const totalPrincipalFormatted = computed(() => formatCurrency(groupSavings.value.totalPrincipal));
 const totalInterestFormatted = computed(() => formatCurrency(groupSavings.value.totalInterest));
@@ -28,13 +27,17 @@ const formattedWeek = computed(() => formatWeek(currentWeek.value));
 const gameReturnRateFormatted = computed(() => formatPercentage(gameInvestment.value.returnRate));
 const gameExpectedReturnFormatted = computed(() => formatCurrency(gameInvestment.value.expectedReturn));
 
-// Methods
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;
 };
 
 const setActiveView = (view: 'registration' | 'dashboard') => {
   uiStore.setActiveView(view);
+    if(view === 'registration') {
+    router.push('/register');
+  } else {
+    router.push('/dashboard')
+  }
 };
 </script>
 

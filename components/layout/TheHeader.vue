@@ -6,26 +6,39 @@ import { useStudentStore } from '../../stores/student';
 import { formatCurrency } from '../../utils/formatters';
 import AppButton from '../common/AppButton.vue';
 
-// Store setup
+
 const uiStore = useUIStore();
 const savingsStore = useSavingsStore();
 const studentStore = useStudentStore();
 
-// State
+const router = useRouter();
+
 const isMobileMenuOpen = ref(false);
 
-// Computed properties
+
 const currentView = computed(() => uiStore.getCurrentView);
 const groupSavings = computed(() => savingsStore.getGroupSavings);
 const activeStudentCount = computed(() => studentStore.getActiveStudentCount);
 const availableSpots = computed(() => studentStore.getAvailableSpots);
 
-// Formatted values
+
 const totalSavingsFormatted = computed(() => formatCurrency(groupSavings.value.totalAmount));
 
-// Methods
+
 const setActiveView = (view: 'registration' | 'dashboard') => {
   uiStore.setActiveView(view);
+
+  if(view === 'registration') {
+    router.push('/register');
+  } else {
+    router.push('/dashboard')
+  }
+  isMobileMenuOpen.value = false;
+
+};
+
+const navigateTo = (route: string) => {
+  router.push(route);
   isMobileMenuOpen.value = false;
 };
 

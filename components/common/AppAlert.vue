@@ -1,11 +1,9 @@
 <script setup lang="ts">
 
-
-// Type definitions
 type AlertType = 'success' | 'error' | 'warning' | 'info';
 type AlertPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
 
-// Props definition
+
 interface Props {
   type?: AlertType;
   title?: string;
@@ -17,7 +15,7 @@ interface Props {
   icon?: boolean;
 }
 
-// Define props with defaults
+
 const props = withDefaults(defineProps<Props>(), {
   type: 'info',
   title: '',
@@ -29,16 +27,16 @@ const props = withDefaults(defineProps<Props>(), {
   icon: true
 });
 
-// Define emits
+
 const emit = defineEmits<{
   (e: 'close'): void;
 }>();
 
-// State
+
 const isVisible = ref(true);
 const timeoutId = ref<number | null>(null);
 
-// Computed classes and properties
+
 const alertClasses = computed(() => {
   const typeClasses = {
     success: 'bg-green-50 border-green-500 text-green-800',
@@ -79,7 +77,7 @@ const iconPath = computed(() => {
   }
 });
 
-// Methods
+
 const close = () => {
   isVisible.value = false;
   if (timeoutId.value) {
@@ -88,7 +86,7 @@ const close = () => {
   emit('close');
 };
 
-// Auto close setup
+
 onMounted(() => {
   if (props.autoClose && props.duration > 0) {
     timeoutId.value = window.setTimeout(() => {

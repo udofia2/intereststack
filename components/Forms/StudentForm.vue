@@ -15,7 +15,7 @@ import TierSelector from './TierSelector.vue';
 // Store and composable setup
 const studentStore = useStudentStore();
 const uiStore = useUIStore();
-const { registerStudent, isGroupFull, canRegisterMore, availableSpots } = useStudents();
+const { amountInput, newStudentName, selectedTierId, registerStudent, isGroupFull, canRegisterMore, availableSpots } = useStudents();
 
 // Form state
 const form = reactive<{
@@ -111,9 +111,12 @@ const handleSubmit = async () => {
       tierId: form.tierSelection.tierId,
       amount: form.tierSelection.amount
     };
-    const student = await registerStudent(registrationData);
-    console.log('the available spots are ', availableSpots)
-    
+
+    newStudentName.value = form.name;
+    selectedTierId.value = form.tierSelection.tierId;
+    amountInput.value = form.tierSelection.amount;
+    const student = await registerStudent();
+    console.log(student)
     if (student) {
       // Reset form
       form.name = '';
@@ -131,6 +134,7 @@ const handleSubmit = async () => {
     }
   } catch (error) {
     form.errors.general = 'An error occurred during registration';
+    console.log(error)
     uiStore.showError('Failed to register student');
   } finally {
     form.isSubmitting = false;

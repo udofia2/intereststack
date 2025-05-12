@@ -19,6 +19,8 @@ const uiStore = useUIStore();
 const { studentsWithFinancials, currentWeek } = useSavings();
 const { withdrawStudent, processWithdrawal } = useSimulation();
 
+const router = useRouter();
+
 // State
 const searchQuery = ref('');
 const selectedTierFilter = ref<TierLevel | null>(null);
@@ -116,6 +118,10 @@ const cancelWithdrawal = () => {
 
 const handleFilterTier = (tierId: TierLevel | null) => {
   selectedTierFilter.value = tierId;
+};
+
+const navigateToRegistration = () => {
+  router.push('/register');
 };
 </script>
 
@@ -234,7 +240,7 @@ const handleFilterTier = (tierId: TierLevel | null) => {
       <div class="mt-6">
         <AppButton 
           variant="primary"
-          @click="uiStore.setActiveView('registration')"
+          @click="navigateToRegistration"
         >
           Register New Student
         </AppButton>
