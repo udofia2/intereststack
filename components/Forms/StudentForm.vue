@@ -111,8 +111,8 @@ const handleSubmit = async () => {
       tierId: form.tierSelection.tierId,
       amount: form.tierSelection.amount
     };
-    
-    const student = await registerStudent();
+    const student = await registerStudent(registrationData);
+    console.log(student)
     
     if (student) {
       // Reset form

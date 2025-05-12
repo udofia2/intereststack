@@ -40,7 +40,9 @@ const toggleMobileMenu = () => {
       <div class="flex justify-between h-16">
         <!-- Logo and desktop navigation -->
         <div class="flex">
-          <div class="flex-shrink-0 flex items-center">
+          <Nuxt-link
+          to="/" 
+          class="flex-shrink-0 flex items-center">
             <div class="flex items-center">
               <!-- Logo -->
               <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +50,7 @@ const toggleMobileMenu = () => {
               </svg>
               <span class="ml-2 text-xl font-bold text-gray-900">InterestStack</span>
             </div>
-          </div>
+          </Nuxt-link>
           <nav class="hidden sm:ml-6 sm:flex sm:space-x-8">
             <!-- Desktop navigation links -->
             <button
